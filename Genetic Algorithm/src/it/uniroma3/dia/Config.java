@@ -7,18 +7,18 @@ public class Config {
 	private double probabilityOfMutation;
 	private int typeOfCrossover;
 	private int numberOfGenerations;
-	private int numberOfThreads;
+	private int numberOfPopulations;
 	
 	public Config(int dimensionOfChromosome, int dimensionOfPopulation,
 			double probabilityOfCrossover, double probabilityOfMutation,
-			int typeOfCrossover, int numberOfGenerations, int numberOfThreads) {
+			int typeOfCrossover, int numberOfGenerations, int numberOfPopulations) {
 		this.dimensionOfChromosome = dimensionOfChromosome;
 		this.dimensionOfPopulation = dimensionOfPopulation;
 		this.probabilityOfCrossover = probabilityOfCrossover;
 		this.probabilityOfMutation = probabilityOfMutation;
 		this.typeOfCrossover = typeOfCrossover;
 		this.numberOfGenerations = numberOfGenerations;
-		this.numberOfThreads = numberOfThreads;
+		this.numberOfPopulations = numberOfPopulations;
 	}
 	
 	public int getDimensionOfChromosome() {
@@ -57,10 +57,10 @@ public class Config {
 	public void setNumberOfGeneration(int numberOfGeneration) {
 		this.numberOfGenerations = numberOfGeneration;
 	}
-	public int getThreadNumber() {
-		return numberOfThreads;
+	public int getNumberOfPopulations() {
+		return numberOfPopulations;
 	}
-	public void setThreadNumber(int threadNumber) {
-		this.numberOfThreads = threadNumber;
+	public void setNumberOfPopulations(int threadNumber) {
+		this.numberOfPopulations = threadNumber;
 	}
 }
