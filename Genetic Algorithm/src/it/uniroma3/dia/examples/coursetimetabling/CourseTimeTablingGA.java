@@ -8,7 +8,6 @@ import it.uniroma3.dia.Chromosome;
 import it.uniroma3.dia.Config;
 import it.uniroma3.dia.Population;
 import it.uniroma3.dia.World;
-import it.uniroma3.dia.examples.AllOneGenesPopulationGA;
 
 public class CourseTimeTablingGA extends Population {
 	public static void main(String[] args) throws Exception {				
@@ -28,7 +27,8 @@ public class CourseTimeTablingGA extends Population {
 	private List<CourseClass> courseClasses = new LinkedList<CourseClass>();
 	private List<Classroom> classRooms = new LinkedList<Classroom>();
 	private String[] hours = new String[]{ "8.00-9.30", "9.45-11.15", "11.30-13.00", "14.00-15.30", "15.45-17.15", "17.30-19.00" };
-	List<Faculty> faculties = new LinkedList<Faculty>(); // non usato, non hanno corsi in comune <_<
+	private List<Faculty> faculties = new LinkedList<Faculty>(); // non hanno corsi in comune <_<
+	private int numberOfLessonDays = 5;
 	
 	public CourseTimeTablingGA() {
 		super();
@@ -43,7 +43,7 @@ public class CourseTimeTablingGA extends Population {
 		Professor prof7 = new Professor(7, "Gasparri");
 		Professor prof8 = new Professor(8, "Protto");
 
-		Classroom room1 = new Classroom(1, "N13A", 80);
+		Classroom room1 = new Classroom(1, "N13A", 100);
 		Classroom room2 = new Classroom(2, "N1", 150);
 		Classroom room3 = new Classroom(3, "DS3A", 50);
 		Classroom room4 = new Classroom(4, "N7", 50);
@@ -57,7 +57,7 @@ public class CourseTimeTablingGA extends Population {
 		classRooms.add(room5);
 		classRooms.add(room6);
 		
-		Faculty faculty1 = new Faculty(1, "Ingegneria Informatica", 150);
+		Faculty faculty1 = new Faculty(1, "Ingegneria Informatica", 100);
 		Faculty faculty2 = new Faculty(2, "Ingegneria Gestionale e dell'Automazione", 50);
 
 		List<Faculty> first = new LinkedList<Faculty>();
@@ -115,7 +115,69 @@ public class CourseTimeTablingGA extends Population {
 	
 	@Override
 	public double computeFitness(Chromosome chromosome) {
-		return Math.random()*100;
+		String[] genes = chromosome.getGenes();
+		
+		int professorUniqueCourse = 0;
+		int courseInSuitableRoom = 0;
+		int classHasRightDuration = 0;
+		int oneLessonInHourForFaculty = 0;
+		
+		for(CourseClass courseClass : courseClasses){
+			int lessons = 0;
+			for(int i = 0; i < genes.length; i++){
+				int idClass = Integer.parseInt(genes[i]);
+				if(courseClass.getId()==idClass)
+					lessons++;
+			}
+			
+			if(lessons==courseClass.getDuration())
+				classHasRightDuration++;
+		}
+		
+		for(Faculty faculty : faculties){
+			for(int j = 0; j<hours.length; j++){
+					for(int x = 0; x<numberOfLessonDays; x++){	
+						int numberOfLessons = 0;
+						for(Classroom room : classRooms){							
+						int index = (room.getId()-1)*hours.length + hours.length*classRooms.size()*x + j;
+						int courseClass = Integer.parseInt(chromosome.getGenes(index));	
+						if(courseClass!=0){
+							CourseClass course = courseClasses.get(courseClass-1);
+							if(course.getFaculties().contains(faculty))
+								numberOfLessons++;
+						}
+						
+						if(numberOfLessons==1)
+							oneLessonInHourForFaculty++;
+						
+						/*if(index>0){
+							int prevCourseClass = Integer.parseInt(chromosome.getGenes(index-1));	
+							if(prevCourseClass!=0)
+								contiguosLessons++;
+						}
+						if(index<genes.length-1)
+						{
+							int nextCourseClass = Integer.parseInt(chromosome.getGenes(index+1));	
+							if(nextCourseClass!=0)
+								contiguosLessons++;
+						}*/
+					}
+				}			
+			}
+		}
+		
+		for(int i = 0; i < genes.length; i++){
+			int idClass = Integer.parseInt(genes[i]);
+			if(idClass!=0)
+			{
+				//String shortName = courseClasses.get(idClass-1).getShortName();
+				int idRoom = (i%(hours.length*classRooms.size())/6);
+				if( classRooms.get(idRoom).getSize()>=courseClasses.get(idClass-1).getSize() )
+					courseInSuitableRoom++;
+			}
+		}
+		
+		return classHasRightDuration*1000+oneLessonInHourForFaculty*10+courseInSuitableRoom*10+professorUniqueCourse;
 	}
 
 	@Override
@@ -152,7 +214,7 @@ public class CourseTimeTablingGA extends Population {
 	@Override
 	public void doMutation(Chromosome chromosome) {
 		String[] genes = chromosome.getGenes();
-		int dimensionOfChromosome = genes.length ;
+		int dimensionOfChromosome = genes.length;
 		
 		for(int i = 0; i<genes.length; i++){
 			double x = Math.random()*100 + 1;
@@ -168,7 +230,7 @@ public class CourseTimeTablingGA extends Population {
 	
 	@Override
 	public String bestChromosomeDecode(){
-		String s = Calendar.printCalendar(this.bestChromosome(), faculties, classRooms, courseClasses, hours, 5);
+		String s = Calendar.printCalendar(this.bestChromosome(), faculties, classRooms, courseClasses, hours, numberOfLessonDays);
 		return s;
 	}
 }
