@@ -115,7 +115,7 @@ public class CourseTimeTablingGA extends Population {
 	
 	@Override
 	public double computeFitness(Chromosome chromosome) {
-		return Math.random();
+		return Math.random()*100;
 	}
 
 	@Override
