@@ -10,7 +10,7 @@ import it.uniroma3.dia.World;
  * L'obiettivo dell'algoritmo è quindi quello di far evolvere la popolazione per avere un abitante con tutti "1".
  */
 
-public class AllOneGenesPopulation extends Population {
+public class AllOneGenesPopulationGA extends Population {
 
 	public static void main(String[] args) throws Exception {
 		
@@ -19,7 +19,7 @@ public class AllOneGenesPopulation extends Population {
 			System.out.println("NumeroGenerazioni: "+numberOfGenerations);
 			//lunghezza cromosomi, numero abitanti, % crossover, % mutazione sul gene, tipo di crossover (non impl), numero di generazioni, numero di popolazioni
 			Config config = new Config(50, 100, 95, 5, 1, numberOfGenerations, 5);
-			World world = new World(config, AllOneGenesPopulation.class);	
+			World world = new World(config, AllOneGenesPopulationGA.class);	
 			world.evolve();			
 			world.evolveBestOfAllPopulations();
 		}

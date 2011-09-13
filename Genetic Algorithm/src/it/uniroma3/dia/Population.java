@@ -45,6 +45,8 @@ public abstract class Population {
 		return this.chromosomes[0];
 	}
 	
+	public String bestChromosomeDecode(){ return bestChromosome().toString(); }
+	
 	public void sortPopulation()
 	{
 		Arrays.sort(this.chromosomes, Collections.reverseOrder());
