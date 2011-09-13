@@ -16,6 +16,10 @@ public class Chromosome implements Comparable<Object> {
 		return genes;
 	}
 	
+	public String getGenes(int i) {
+		return genes[i];
+	}
+	
 	public void setGene(String gene, int positionOfGene) {
 		this.genes[positionOfGene] = gene;
 	}

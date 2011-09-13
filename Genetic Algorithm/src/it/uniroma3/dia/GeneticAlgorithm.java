@@ -22,8 +22,6 @@ public class GeneticAlgorithm implements Runnable {
 		for(int i = 0; i<this.config.getNumberOfGeneration(); i++){
 			population.sortPopulation();
 			
-			//System.out.println(population.toString());
-			
 			Chromosome[] matingPool = population.generateMatingPool();
 			Utils.randomizeArray(matingPool);
 			
@@ -44,6 +42,6 @@ public class GeneticAlgorithm implements Runnable {
 			population.replacePopulation(newGeneration);			
 		}	
 		
-		System.out.println("Best in Population "+population.numberOfPopulation+": "+population.bestChromosome());
+		System.out.println("Best in Population "+population.numberOfPopulation+": "+population.bestChromosomeDecode());
 	}
 }
