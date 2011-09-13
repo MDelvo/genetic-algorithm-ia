@@ -51,4 +51,11 @@ public class CourseClass {
 	public void setFaculties(List<Faculty> faculties) {
 		this.faculties = faculties;
 	}
+	
+	public int getSize(){
+		int size = 0;
+		for(Faculty faculty : faculties)
+			size+=faculty.getSize();
+		return size;
+	}
 }
