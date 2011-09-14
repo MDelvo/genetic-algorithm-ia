@@ -1,6 +1,4 @@
-package it.uniroma3.dia.examples;
-
-import java.util.Arrays;
+package it.uniroma3.dia.examples.allone;
 
 import it.uniroma3.dia.Chromosome;
 import it.uniroma3.dia.Population;
@@ -11,10 +9,10 @@ import it.uniroma3.dia.World;
  * L'obiettivo dell'algoritmo è quindi quello di far evolvere la popolazione per avere un abitante con tutti "1".
  */
 
-public class AllOneGenesPopulationGA extends Population {
+public class AllOneGenesGA extends Population {
 
 	public static void main(String[] args) throws Exception {		
-		World world = new World(AllOneGenesPopulationGA.class);	
+		World world = new World(AllOneGenesGA.class);	
 		world.evolve();			
 		world.evolveBestOfAllPopulations();
 	}
@@ -48,47 +46,23 @@ public class AllOneGenesPopulationGA extends Population {
 
 	@Override
 	public void doCrossover(Chromosome chromosome1, Chromosome chromosome2) {
-		int dimensionOfChromosome = chromosome1.getGenes().length ;
-		int NPoint = config.getTypeOfCrossover();
-		int[] points = new int[NPoint];
-		
-		for(int i = 0; i<points.length; i++)
-		{
-			int crossoverPoint = (int) (Math.random()* (dimensionOfChromosome - 2));
-			points[i] = crossoverPoint;
-		}	
-		Arrays.sort(points);
-		
-		int lastI = 0;
-		boolean pari = true;
-		
-		for(int i = 0; i<points.length; i++)
-		{
-			for(int j = lastI; j<points[i]; j++)
-			{
-				if(!pari){	
-					String temp = chromosome1.getGenes(j);
-					chromosome1.setGene(chromosome2.getGenes(j), j);
-					chromosome2.setGene(temp, j);	
-				}			
-			}
-			pari=!pari;
-			lastI = points[i];
-		}	
+		super.doCrossover(chromosome1, chromosome2);
 	}
 
 	@Override
 	public void doMutation(Chromosome chromosome) {
+		super.doMutation(chromosome);
+	}
+
+	@Override
+	public boolean bestSolutionIsSatisfactory(Chromosome chromosome) {
+		boolean satisfy = true;
 		String[] genes = chromosome.getGenes();
-		for(int i = 0; i<genes.length; i++){
-			double x = Math.random()*100 + 1;
-			if( config.getProbabilityOfMutation() >= x )
-			{
-				if(genes[i].equals("1"))
-					chromosome.setGene("0", i);
-				else
-					chromosome.setGene("1", i);	
-			}
+		for(String gene : genes)
+		{
+			if(gene.equals("0"))
+				satisfy = false;
 		}
+		return satisfy;
 	}
 }

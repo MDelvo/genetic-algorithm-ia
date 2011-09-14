@@ -1,11 +1,11 @@
 package it.uniroma3.dia;
 
 public class Chromosome implements Comparable<Object> {
-	String[] genes;
-	double fitnessValue;
+	private String[] genes;
+	private double fitnessValue;
 	
 	public Chromosome(int dimensionOfChromosome){
-		genes = new String[dimensionOfChromosome];
+		this.genes = new String[dimensionOfChromosome];
 	}
 
 	public void setGenes(String[] genes) {
@@ -13,24 +13,19 @@ public class Chromosome implements Comparable<Object> {
 	}
 
 	public String[] getGenes() {
-		return genes;
+		return this.genes;
 	}
 	
 	public String getGenes(int i) {
-		return genes[i];
+		return this.genes[i];
 	}
 	
 	public void setGene(String gene, int positionOfGene) {
 		this.genes[positionOfGene] = gene;
 	}
-		
-	public void setGeneFromStr(String gene) {
-		for(int i = 0; i<gene.length(); i++)
-			this.genes[i] = gene.substring(i, i+1);
-	}
 
 	public double getFitnessValue() {
-		return fitnessValue;
+		return this.fitnessValue;
 	}
 
 	public void setFitnessValue(double fitnessValue) {
@@ -39,11 +34,11 @@ public class Chromosome implements Comparable<Object> {
 
 	@Override
 	public String toString() {
-		String strgenes = "";
+		String strGenes = "";
 		for(int i = 0;i<this.genes.length; i++)
-			strgenes+=genes[i];
-		strgenes += ", "+this.fitnessValue;
-		return strgenes;
+			strGenes+=genes[i];
+		strGenes += ", "+this.fitnessValue;
+		return strGenes;
 	}
 	@Override
 	public int compareTo(Object arg) {

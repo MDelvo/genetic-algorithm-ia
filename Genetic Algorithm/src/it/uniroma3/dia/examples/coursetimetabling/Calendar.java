@@ -1,6 +1,9 @@
 package it.uniroma3.dia.examples.coursetimetabling;
 
 import it.uniroma3.dia.Chromosome;
+import it.uniroma3.dia.examples.coursetimetabling.model.Classroom;
+import it.uniroma3.dia.examples.coursetimetabling.model.CourseClass;
+import it.uniroma3.dia.examples.coursetimetabling.model.Faculty;
 
 import java.util.List;
 
