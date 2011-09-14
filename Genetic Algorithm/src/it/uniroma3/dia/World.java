@@ -5,8 +5,8 @@ public class World {
 	private Population[] populations;
 	private Class<? extends Population> clazz;
 	
-	public World(Config config, Class<? extends Population> clazz) throws Exception{
-		this.config = config;
+	public World(Class<? extends Population> clazz) throws Exception{
+		this.config = new Config();
 		this.clazz = clazz;
 		this.populations = new Population[config.getNumberOfPopulations()];
 		
