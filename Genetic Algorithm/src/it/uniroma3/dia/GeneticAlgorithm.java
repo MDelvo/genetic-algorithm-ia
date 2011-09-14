@@ -19,7 +19,7 @@ public class GeneticAlgorithm implements Runnable {
 		
 		population.evaluateFitnessOfPopulation();
 		
-		for(int i = 0; i<this.config.getNumberOfGeneration(); i++){
+		for(int i = 0; i<this.config.getNumberOfGenerations(); i++){
 			population.sortPopulation();
 			
 			Chromosome[] matingPool = population.generateMatingPool();

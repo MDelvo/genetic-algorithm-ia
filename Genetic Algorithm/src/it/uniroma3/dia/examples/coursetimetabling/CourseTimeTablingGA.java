@@ -5,21 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import it.uniroma3.dia.Chromosome;
-import it.uniroma3.dia.Config;
 import it.uniroma3.dia.Population;
 import it.uniroma3.dia.World;
 
 public class CourseTimeTablingGA extends Population {
 	public static void main(String[] args) throws Exception {				
-		int numberOfLessonsInADay = 6;
-		int numberOfLessonDays = 5; // da lunedi a venerdi 5 giorni
-		int numberOfClassroom = 6;
-		int dimensionOfChromosome = numberOfLessonsInADay*numberOfLessonDays*numberOfClassroom;
-		
-		int numberOfGenerations = 1000;
-		//lunghezza cromosomi, numero abitanti, % crossover, % mutazione sul gene, tipo di crossover (non impl), numero di generazioni, numero di popolazioni
-		Config config = new Config(dimensionOfChromosome, 100, 95, 5, 2, numberOfGenerations, 1);
-		World world = new World(config, CourseTimeTablingGA.class);	
+		World world = new World(CourseTimeTablingGA.class);	
 		world.evolve();			
 		//world.evolveBestOfAllPopulations();
 	}
@@ -27,13 +18,12 @@ public class CourseTimeTablingGA extends Population {
 	private List<CourseClass> courseClasses = new LinkedList<CourseClass>();
 	private List<Classroom> classRooms = new LinkedList<Classroom>();
 	private String[] hours = new String[]{ "8.00-9.30", "9.45-11.15", "11.30-13.00", "14.00-15.30", "15.45-17.15", "17.30-19.00" };
-	private List<Faculty> faculties = new LinkedList<Faculty>(); // non hanno corsi in comune <_<
+	private List<Faculty> faculties = new LinkedList<Faculty>();
 	private int numberOfLessonDays = 5;
 	
 	public CourseTimeTablingGA() {
 		super();
-		// Init model
-		// Ingegneria Informatica e Ingegneria Gestionale e dell'Automazione 1° Anno Magistrale 2010-2011 Uniroma3
+
 		Professor prof1 = new Professor(1, "Di Battista");
 		Professor prof2 = new Professor(2, "Giunta");
 		Professor prof3 = new Professor(3, "Nicosia");
@@ -93,18 +83,20 @@ public class CourseTimeTablingGA extends Population {
 
 	@Override
 	public void generateFirstPopulation() {
+		int dimensionOfChromosome = hours.length*numberOfLessonDays*classRooms.size();
+				
 		for(int i = 0; i<config.getDimensionOfPopulation(); i++){
-			this.chromosomes[i] = new Chromosome(config.getDimensionOfChromosome());
+			this.chromosomes[i] = new Chromosome(dimensionOfChromosome);
 			
-			for(int j = 0; j<config.getDimensionOfChromosome(); j++)
+			for(int j = 0; j<dimensionOfChromosome; j++)
 				this.chromosomes[i].setGene("0", j);
 			
 			for(CourseClass course : courseClasses){
 				for(int j = 0;j<course.getDuration();j++)
 				{
-					int x = (int)(Math.random()*config.getDimensionOfChromosome() );
+					int x = (int)(Math.random()*dimensionOfChromosome );
 					while(!this.chromosomes[i].getGenes(x).equals("0")){
-						x = (int)(Math.random()*config.getDimensionOfChromosome() );
+						x = (int)(Math.random()*dimensionOfChromosome );
 					}
 					
 					this.chromosomes[i].setGene(String.valueOf(course.getId()), x);

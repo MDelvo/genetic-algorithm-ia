@@ -1,5 +1,7 @@
 package it.uniroma3.dia.examples;
 
+import java.util.Arrays;
+
 import it.uniroma3.dia.Chromosome;
 import it.uniroma3.dia.Config;
 import it.uniroma3.dia.Population;
@@ -12,25 +14,19 @@ import it.uniroma3.dia.World;
 
 public class AllOneGenesPopulationGA extends Population {
 
-	public static void main(String[] args) throws Exception {
-		
-		for(int i = 1; i<=10; i++){
-			int numberOfGenerations = i*5;
-			System.out.println("NumeroGenerazioni: "+numberOfGenerations);
-			//lunghezza cromosomi, numero abitanti, % crossover, % mutazione sul gene, tipo di crossover (non impl), numero di generazioni, numero di popolazioni
-			Config config = new Config(50, 100, 95, 5, 1, numberOfGenerations, 5);
-			World world = new World(config, AllOneGenesPopulationGA.class);	
-			world.evolve();			
-			world.evolveBestOfAllPopulations();
-		}
+	public static void main(String[] args) throws Exception {		
+		World world = new World(AllOneGenesPopulationGA.class);	
+		world.evolve();			
+		world.evolveBestOfAllPopulations();
 	}
 	
 	@Override
 	public void generateFirstPopulation() {
+		int dimensionOfChromosome = 50;
 		for(int i = 0; i<config.getDimensionOfPopulation(); i++){
-			this.chromosomes[i] = new Chromosome(config.getDimensionOfChromosome());
+			this.chromosomes[i] = new Chromosome(dimensionOfChromosome);
 			
-			for(int j = 0; j<config.getDimensionOfChromosome(); j++){
+			for(int j = 0; j<dimensionOfChromosome; j++){
 				double x = Math.random();
 				if(x>0.5)
 					this.chromosomes[i].setGene("1", j);
@@ -53,20 +49,33 @@ public class AllOneGenesPopulationGA extends Population {
 
 	@Override
 	public void doCrossover(Chromosome chromosome1, Chromosome chromosome2) {
-		// only one point crossover:
-		String newChromosome1, newChromosome2, strChromosome1, strChromosome2;
-
-        strChromosome1 = chromosome1.strGenes();
-        strChromosome2 = chromosome2.strGenes();
-        
-        int dimensionOfChromosome = strChromosome1.length();
-        int crossoverPoint = (int) (Math.random()* (dimensionOfChromosome - 2));
-
-        newChromosome1 = strChromosome1.substring(0, crossoverPoint) + strChromosome2.substring(crossoverPoint, dimensionOfChromosome);
-        newChromosome2 = strChromosome2.substring(0, crossoverPoint) + strChromosome1.substring(crossoverPoint, dimensionOfChromosome);
-        
-        chromosome1.setGeneFromStr(newChromosome1);
-        chromosome2.setGeneFromStr(newChromosome2);
+		int dimensionOfChromosome = chromosome1.getGenes().length ;
+		int NPoint = config.getTypeOfCrossover();
+		int[] points = new int[NPoint];
+		
+		for(int i = 0; i<points.length; i++)
+		{
+			int crossoverPoint = (int) (Math.random()* (dimensionOfChromosome - 2));
+			points[i] = crossoverPoint;
+		}	
+		Arrays.sort(points);
+		
+		int lastI = 0;
+		boolean pari = true;
+		
+		for(int i = 0; i<points.length; i++)
+		{
+			for(int j = lastI; j<points[i]; j++)
+			{
+				if(!pari){	
+					String temp = chromosome1.getGenes(j);
+					chromosome1.setGene(chromosome2.getGenes(j), j);
+					chromosome2.setGene(temp, j);	
+				}			
+			}
+			pari=!pari;
+			lastI = points[i];
+		}	
 	}
 
 	@Override

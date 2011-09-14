@@ -28,13 +28,6 @@ public class Chromosome implements Comparable<Object> {
 		for(int i = 0; i<gene.length(); i++)
 			this.genes[i] = gene.substring(i, i+1);
 	}
-	
-	public String strGenes(){
-		String strgenes = "";
-		for(int i = 0;i<this.genes.length; i++)
-			strgenes+=genes[i];
-		return strgenes;
-	}
 
 	public double getFitnessValue() {
 		return fitnessValue;
