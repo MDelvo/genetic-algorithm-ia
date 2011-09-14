@@ -12,41 +12,40 @@ public class Config {
 	private int numberOfPopulations;
 
 	public Config() {
-		
 		Properties properties = new Properties();
-		try {
+		try { 
 			properties.load(new FileInputStream("config.properties"));
 		} catch (Exception e) { throw new RuntimeException("Error when loading config file"); }
 		
-		this.dimensionOfPopulation = Integer.parseInt(properties.get("dimensionOfPopulation").toString());
-		this.probabilityOfCrossover = Integer.parseInt(properties.get("probabilityOfCrossover").toString());
-		this.probabilityOfMutation = Integer.parseInt(properties.get("probabilityOfMutation").toString());
-		this.typeOfCrossover = Integer.parseInt(properties.get("typeOfCrossover").toString());
-		this.numberOfGenerations = Integer.parseInt(properties.get("numberOfGenerations").toString());
-		this.numberOfPopulations = Integer.parseInt(properties.get("numberOfPopulations").toString());
+		this.dimensionOfPopulation = Integer.parseInt(properties.get("DimensionOfPopulation").toString());
+		this.probabilityOfCrossover = Integer.parseInt(properties.get("ProbabilityOfCrossover").toString());
+		this.probabilityOfMutation = Integer.parseInt(properties.get("ProbabilityOfMutation").toString());
+		this.typeOfCrossover = Integer.parseInt(properties.get("NPointCrossover").toString());
+		this.numberOfGenerations = Integer.parseInt(properties.get("NumberOfGenerations").toString());
+		this.numberOfPopulations = Integer.parseInt(properties.get("NumberOfPopulations").toString());
 	}
 
 	public int getDimensionOfPopulation() {
-		return dimensionOfPopulation;
+		return this.dimensionOfPopulation;
 	}
 
 	public double getProbabilityOfCrossover() {
-		return probabilityOfCrossover;
+		return this.probabilityOfCrossover;
 	}
 
 	public double getProbabilityOfMutation() {
-		return probabilityOfMutation;
+		return this.probabilityOfMutation;
 	}
 
 	public int getTypeOfCrossover() {
-		return typeOfCrossover;
+		return this.typeOfCrossover;
 	}
 
 	public int getNumberOfGenerations() {
-		return numberOfGenerations;
+		return this.numberOfGenerations;
 	}
 
 	public int getNumberOfPopulations() {
-		return numberOfPopulations;
+		return this.numberOfPopulations;
 	}
 }

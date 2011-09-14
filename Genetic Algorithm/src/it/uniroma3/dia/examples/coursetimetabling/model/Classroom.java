@@ -1,4 +1,4 @@
-package it.uniroma3.dia.examples.coursetimetabling;
+package it.uniroma3.dia.examples.coursetimetabling.model;
 
 public class Classroom {
 	private int id;
@@ -13,20 +13,11 @@ public class Classroom {
 	
 	public int getId() {
 		return id;
-	}	
-	public void setId(int id) {
-		this.id = id;
-	}	
+	}		
 	public String getName() {
 		return name;
-	}	
-	public void setName(String name) {
-		this.name = name;
-	}	
+	}		
 	public int getSize() {
 		return size;
-	}	
-	public void setSize(int size) {
-		this.size = size;
 	}	
 }

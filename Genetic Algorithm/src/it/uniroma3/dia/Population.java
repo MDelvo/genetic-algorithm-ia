@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class Population {
 	
-	protected int numberOfPopulation;
+	protected String nameOfPopulation;
 	protected Config config;
 	protected Chromosome[] chromosomes;
 	
@@ -15,9 +15,53 @@ public abstract class Population {
 	
 	public abstract double computeFitness(Chromosome chromosome);
 	
-	public abstract void doCrossover(Chromosome chromosome1, Chromosome chromosome2);	
+	public abstract boolean bestSolutionIsSatisfactory(Chromosome chromosome);
 	
-	public abstract void doMutation(Chromosome chromosome);		
+	public void doCrossover(Chromosome chromosome1, Chromosome chromosome2){
+		int dimensionOfChromosome = chromosome1.getGenes().length ;
+		int NPoint = config.getTypeOfCrossover();
+		int[] points = new int[NPoint];
+		
+		for(int i = 0; i<points.length; i++)
+		{
+			int crossoverPoint = (int) (Math.random()* (dimensionOfChromosome - 2));
+			points[i] = crossoverPoint;
+		}	
+		Arrays.sort(points);
+		
+		int lastI = 0;
+		boolean pari = true;
+		
+		for(int i = 0; i<points.length; i++)
+		{
+			for(int j = lastI; j<points[i]; j++)
+			{
+				if(!pari){	
+					String temp = chromosome1.getGenes(j);
+					chromosome1.setGene(chromosome2.getGenes(j), j);
+					chromosome2.setGene(temp, j);	
+				}			
+			}
+			pari=!pari;
+			lastI = points[i];
+		}	
+	}
+	
+	public void doMutation(Chromosome chromosome){
+		String[] genes = chromosome.getGenes();
+		int dimensionOfChromosome = genes.length;
+		
+		for(int i = 0; i<genes.length; i++){
+			double x = Math.random()*100 + 1;
+			if( config.getProbabilityOfMutation() >= x )
+			{								
+				int changeGene = (int) (Math.random()* dimensionOfChromosome);
+				String temp = chromosome.getGenes(changeGene);
+				chromosome.setGene(genes[i], changeGene);
+				chromosome.setGene(temp, i);
+			}
+		}
+	}
 
 	public void evolve(){
 		GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(this);
@@ -80,12 +124,23 @@ public abstract class Population {
 		for(int i = 0; i<newGeneration.length; i++)
 			newPopulation[i] = newGeneration[i];
 
-		Utils.randomizeArray(this.chromosomes);
+		//TODO: add tuning parameter ?
+		//this.randomizeChromosome(this.chromosomes);
 		
 		for(int i = newGeneration.length; i<this.chromosomes.length; i++)
 			newPopulation[i] = this.chromosomes[i-newGeneration.length];
 		
 		this.chromosomes = newPopulation;
+	}
+	
+	public void randomizeChromosome(Chromosome[] array)
+	{
+		for (int i=0; i<array.length; i++) {
+		    int randomPosition = (int)(Math.random()*array.length);
+		    Chromosome temp = array[i];
+		    array[i] = array[randomPosition];
+		    array[randomPosition] = temp;
+		}
 	}
 	
 	public Config getConfig() {
@@ -96,12 +151,12 @@ public abstract class Population {
 		this.config = config;
 	}
 
-	public int getNumberOfPopulation() {
-		return numberOfPopulation;
+	public String getNumberOfPopulation() {
+		return this.nameOfPopulation;
 	}
 
-	public void setNumberOfPopulation(int numberOfPopulation) {
-		this.numberOfPopulation = numberOfPopulation;
+	public void setNumberOfPopulation(String numberOfPopulation) {
+		this.nameOfPopulation = numberOfPopulation;
 	}
 
 	public Chromosome[] getChromosomes() {

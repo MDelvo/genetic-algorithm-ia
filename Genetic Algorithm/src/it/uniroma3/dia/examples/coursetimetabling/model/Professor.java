@@ -1,4 +1,4 @@
-package it.uniroma3.dia.examples.coursetimetabling;
+package it.uniroma3.dia.examples.coursetimetabling.model;
 
 public class Professor {
 	private int id;
@@ -12,13 +12,7 @@ public class Professor {
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 }

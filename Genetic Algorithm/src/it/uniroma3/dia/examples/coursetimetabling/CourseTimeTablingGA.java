@@ -1,12 +1,15 @@
 package it.uniroma3.dia.examples.coursetimetabling;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import it.uniroma3.dia.Chromosome;
 import it.uniroma3.dia.Population;
 import it.uniroma3.dia.World;
+import it.uniroma3.dia.examples.coursetimetabling.model.Classroom;
+import it.uniroma3.dia.examples.coursetimetabling.model.CourseClass;
+import it.uniroma3.dia.examples.coursetimetabling.model.Faculty;
+import it.uniroma3.dia.examples.coursetimetabling.model.Professor;
 
 public class CourseTimeTablingGA extends Population {
 	public static void main(String[] args) throws Exception {				
@@ -173,56 +176,23 @@ public class CourseTimeTablingGA extends Population {
 	}
 
 	@Override
-	public void doCrossover(Chromosome chromosome1, Chromosome chromosome2) {		
-		int dimensionOfChromosome = chromosome1.getGenes().length ;
-		int NPoint = config.getTypeOfCrossover();
-		int[] points = new int[NPoint];
-		
-		for(int i = 0; i<points.length; i++)
-		{
-			int crossoverPoint = (int) (Math.random()* (dimensionOfChromosome - 2));
-			points[i] = crossoverPoint;
-		}	
-		Arrays.sort(points);
-		
-		int lastI = 0;
-		boolean pari = true;
-		
-		for(int i = 0; i<points.length; i++)
-		{
-			for(int j = lastI; j<points[i]; j++)
-			{
-				if(!pari){	
-					String temp = chromosome1.getGenes(j);
-					chromosome1.setGene(chromosome2.getGenes(j), j);
-					chromosome2.setGene(temp, j);	
-				}			
-			}
-			pari=!pari;
-			lastI = points[i];
-		}	
+	public void doCrossover(Chromosome chromosome1, Chromosome chromosome2) {
+		super.doCrossover(chromosome1, chromosome2);
 	}
 
 	@Override
 	public void doMutation(Chromosome chromosome) {
-		String[] genes = chromosome.getGenes();
-		int dimensionOfChromosome = genes.length;
-		
-		for(int i = 0; i<genes.length; i++){
-			double x = Math.random()*100 + 1;
-			if( config.getProbabilityOfMutation() >= x )
-			{								
-				int changeGene = (int) (Math.random()* dimensionOfChromosome);
-				String temp = chromosome.getGenes(changeGene);
-				chromosome.setGene(genes[i], changeGene);
-				chromosome.setGene(temp, i);
-			}
-		}		
+		super.doMutation(chromosome);
 	}
 	
 	@Override
 	public String bestChromosomeDecode(){
 		String s = Calendar.printCalendar(this.bestChromosome(), faculties, classRooms, courseClasses, hours, numberOfLessonDays);
 		return s;
+	}
+
+	@Override
+	public boolean bestSolutionIsSatisfactory(Chromosome chromosome) {
+		return true;
 	}
 }
