@@ -3,7 +3,6 @@ package it.uniroma3.dia.examples;
 import java.util.Arrays;
 
 import it.uniroma3.dia.Chromosome;
-import it.uniroma3.dia.Config;
 import it.uniroma3.dia.Population;
 import it.uniroma3.dia.World;
 
