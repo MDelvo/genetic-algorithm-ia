@@ -6,12 +6,14 @@ import java.util.List;
 import it.uniroma3.dia.Chromosome;
 import it.uniroma3.dia.Population;
 import it.uniroma3.dia.World;
+import it.uniroma3.dia.events.EventFinishGA;
+import it.uniroma3.dia.events.LogEventGA;
 import it.uniroma3.dia.examples.coursetimetabling.model.Classroom;
 import it.uniroma3.dia.examples.coursetimetabling.model.CourseClass;
 import it.uniroma3.dia.examples.coursetimetabling.model.Faculty;
 import it.uniroma3.dia.examples.coursetimetabling.model.Professor;
 
-public class CourseTimeTablingGA extends Population {
+public class CourseTimeTablingGA extends Population implements LogEventGA {
 	public static void main(String[] args) throws Exception {				
 		World world = new World(CourseTimeTablingGA.class);	
 		world.evolve();			
@@ -25,7 +27,8 @@ public class CourseTimeTablingGA extends Population {
 	
 	public CourseTimeTablingGA() {
 		super();
-
+		this.addLogEventListener(this);
+		
 		Professor prof1 = new Professor(1, "Di Battista");
 		Professor prof2 = new Professor(2, "Giunta");
 		Professor prof3 = new Professor(3, "Nicosia");
@@ -183,11 +186,11 @@ public class CourseTimeTablingGA extends Population {
 	public void doMutation(Chromosome chromosome) {
 		super.doMutation(chromosome);
 	}
-	
+		
 	@Override
-	public String bestChromosomeDecode(){
-		String s = Calendar.printCalendar(this.bestChromosome(), faculties, classRooms, courseClasses, hours, numberOfLessonDays);
-		return s;
+	public void populationEvolutionFinished(EventFinishGA evt) {
+		if(!this.isInEvolution())
+			System.out.println("Best in Population "+this.nameOfPopulation+" in "+evt.getNumberOfGenerations()+" generations : "+Calendar.printCalendar(this.bestChromosome(), faculties, classRooms, courseClasses, hours, numberOfLessonDays));
 	}
 
 	@Override

@@ -3,24 +3,17 @@ package it.uniroma3.dia.examples.allone;
 import it.uniroma3.dia.Chromosome;
 import it.uniroma3.dia.Population;
 import it.uniroma3.dia.World;
-import it.uniroma3.dia.events.EventFinishGA;
-import it.uniroma3.dia.events.LogEventGA;
 
 /*
  * Prima semplice implementazione di popolazione dove l'elemento migliore è quello che contiene tra i geni un maggior numero di "1".
  * L'obiettivo dell'algoritmo è quindi quello di far evolvere la popolazione per avere un abitante con tutti "1".
  */
 
-public class AllOneGenesGA extends Population implements LogEventGA {
+public class AllOneGenesGA extends Population {
 
 	public static void main(String[] args) throws Exception {		
 		World world = new World(AllOneGenesGA.class);	
 		world.evolve();	
-	}
-	
-	public AllOneGenesGA(){
-		super();
-		this.addLogEventListener(this);
 	}
 	
 	@Override
@@ -80,10 +73,5 @@ public class AllOneGenesGA extends Population implements LogEventGA {
 				satisfy = false;
 		}
 		return satisfy;
-	}
-	
-	@Override
-	public void populationEvolutionFinished(EventFinishGA evt) {
-		System.out.println("Best in Population "+this.nameOfPopulation+" in "+evt.getNumberOfGenerations()+" generations : "+this.bestChromosomeDecode());
 	}
 }
