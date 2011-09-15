@@ -42,7 +42,8 @@ public class World implements LogEventGA {
 		config.setNumberOfGenerations(config.getNumberOfGenerationsOfMergedPopulations());
 		population.setConfig(config);
 		population.setNumberOfPopulation("Merged Best Population");
-
+		population.setInEvolution(true);
+		
 		Chromosome[] chromosomes = new Chromosome[config.getDimensionOfPopulation()];
 		
 		for(int i = 0;i<config.getDimensionOfPopulation(); i++){
@@ -56,13 +57,10 @@ public class World implements LogEventGA {
 	}
 
 	@Override
-	public void populationEvolutionFinished(EventFinishGA evt) {
-		Population population = evt.getPopulation();
-		population.setInEvolution(false);
-		
+	public void populationEvolutionFinished(EventFinishGA evt) {		
 		boolean evolveBestOfAllPopulations = true;
-		for(Population tempPopulation : populations){
-			if(tempPopulation.isInEvolution()){
+		for(Population population : populations){
+			if(population.isInEvolution()){
 				evolveBestOfAllPopulations = false;
 				break;
 			}

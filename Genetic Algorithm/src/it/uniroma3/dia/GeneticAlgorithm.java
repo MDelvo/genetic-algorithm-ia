@@ -41,9 +41,11 @@ public class GeneticAlgorithm implements Runnable {
 				newGeneration[j+1].setFitnessValue(this.population.computeFitness(newGeneration[j+1]));
 			}
 			
-			this.population.replacePopulation(newGeneration);		
+			this.population.replacePopulation(newGeneration);	
+
+			this.population.fireMyEvent(new EventFinishGA(this, this.population, i));
 		}	
-		
+		this.population.setInEvolution(false);
 		this.population.fireMyEvent(new EventFinishGA(this, this.population, i));
 	}
 }
