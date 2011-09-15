@@ -10,7 +10,7 @@ import java.util.List;
 
 import javax.swing.event.EventListenerList;
 
-public abstract class Population {
+public abstract class Population implements LogEventGA {
 	
 	protected EventListenerList listenerList = new EventListenerList();
 	
@@ -18,6 +18,10 @@ public abstract class Population {
 	protected Config config;
 	protected Chromosome[] chromosomes;
 	protected boolean inEvolution;
+	
+	public Population(){
+		this.addLogEventListener(this);
+	}
 	
 	public void evolve(){
 		GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(this);
@@ -34,13 +38,14 @@ public abstract class Population {
 	public void doCrossover(Chromosome chromosome1, Chromosome chromosome2){
 		int dimensionOfChromosome = chromosome1.getGenes().length ;
 		int NPoint = config.getTypeOfCrossover();
-		int[] points = new int[NPoint];
+		int[] points = new int[NPoint+1];
 		
 		for(int i = 0; i<points.length; i++)
 		{
 			int crossoverPoint = (int) (Math.random()* (dimensionOfChromosome - 2));
 			points[i] = crossoverPoint;
 		}	
+		points[NPoint]=dimensionOfChromosome;
 		Arrays.sort(points);
 		
 		int lastI = 0;
@@ -130,11 +135,7 @@ public abstract class Population {
 		sortPopulation();
 		return this.chromosomes[0];
 	}
-	
-	public String bestChromosomeDecode(){
-		return bestChromosome().toString();
-	}
-	
+
 	public void sortPopulation()
 	{
 		Arrays.sort(this.chromosomes, Collections.reverseOrder());
@@ -166,6 +167,12 @@ public abstract class Population {
             }
         }
     }
+    
+	@Override
+	public void populationEvolutionFinished(EventFinishGA evt) {
+		if(!this.isInEvolution())
+			System.out.println("Best in Population "+this.nameOfPopulation+" in "+evt.getNumberOfGenerations()+" generations : "+this.bestChromosome());
+	}
     
 	public Config getConfig() {
 		return config;
