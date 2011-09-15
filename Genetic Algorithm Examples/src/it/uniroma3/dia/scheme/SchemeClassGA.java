@@ -4,9 +4,8 @@ import it.uniroma3.dia.Chromosome;
 import it.uniroma3.dia.Population;
 import it.uniroma3.dia.World;
 import it.uniroma3.dia.events.EventFinishGA;
-import it.uniroma3.dia.events.LogEventGA;
 
-public class SchemeClassGA extends Population implements LogEventGA{
+public class SchemeClassGA extends Population{
 	
 	public static void main(String[] args) throws Exception {		
 		World world = new World(SchemeClassGA.class);	
@@ -15,17 +14,23 @@ public class SchemeClassGA extends Population implements LogEventGA{
 	
 	public SchemeClassGA() {
 		super();
-		this.addLogEventListener(this);
 	}
 
 	@Override
 	public void generateFirstPopulation() {
-		
+		int dimensionOfChromosome = 10;
+		for(int i = 0; i<config.getDimensionOfPopulation(); i++){
+			this.chromosomes[i] = new Chromosome(dimensionOfChromosome);
+			
+			for(int j = 0; j<dimensionOfChromosome; j++){
+				this.chromosomes[i].setGene("X", j);
+			}
+		}
 	}
 
 	@Override
 	public double computeFitness(Chromosome chromosome) {
-		return 0;
+		return Math.random();
 	}
 
 	@Override
@@ -55,6 +60,7 @@ public class SchemeClassGA extends Population implements LogEventGA{
 
 	@Override
 	public void populationEvolutionFinished(EventFinishGA evt) {
-		System.out.println("Best in Popudlation "+this.nameOfPopulation+" in "+evt.getNumberOfGenerations()+" generations : "+this.bestChromosomeDecode());
+		if(!this.isInEvolution())
+			System.out.println("Best in Population "+this.nameOfPopulation+" in "+evt.getNumberOfGenerations()+" generations : "+this.bestChromosome());
 	}
 }

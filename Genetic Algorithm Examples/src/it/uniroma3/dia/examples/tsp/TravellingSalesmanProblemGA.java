@@ -1,12 +1,10 @@
 package it.uniroma3.dia.examples.tsp;
 
 import it.uniroma3.dia.Chromosome;
-import it.uniroma3.dia.events.EventFinishGA;
 import it.uniroma3.dia.Population;
 import it.uniroma3.dia.World;
-import it.uniroma3.dia.events.LogEventGA;
 
-public class TravellingSalesmanProblemGA extends Population implements LogEventGA {
+public class TravellingSalesmanProblemGA extends Population {
 
 	public static void main(String[] args) throws Exception {		
 		World world = new World(TravellingSalesmanProblemGA.class);	
@@ -18,17 +16,16 @@ public class TravellingSalesmanProblemGA extends Population implements LogEventG
 	private int numberOfCities = 20;
 	
 	public TravellingSalesmanProblemGA() {
-		super();
-		this.addLogEventListener(this);
+		super();		
 		
 		this.cities = new int[numberOfCities];
 		for(int i = 0; i<numberOfCities; i++)
 			this.cities[i]=i+1;
 		
-		// Best in Population 1 in 100000 generations : 1312162711720199181068431551114, 0.5197505197505198
+		// Best in Population 1 in 100000 generations : 1312162711720199181068431551114, 0.5197505197505198 = 1924
 		// Best in Population 3 in 10000 generations : 2181071172019951534861114131216, 0.4914004914004914
 		// Best in Population Merged Best Population in 100000 generations : 1018431559192017172161213141186, 0.49115913555992136
-		// Best in Population Merged Best Population in 10000 generations : 1286115153416271018919117201413, 0.4830917874396135
+		// Best in Population Merged Best Population in 10000 generations : 1286115153416271018919117201413, 0.4830917874396135 = 2070
 		this.cost = new int[numberOfCities][];
 		this.cost[0] = new int[]{0,877,489,303,884,566,108,374,770,395,953,352,267,468,669,440,2,900,45,253};
 		this.cost[1] = new int[]{877,0,254,81,987,765,94,167,331,918,274,854,461,379,811,86,7,134,843,441};
@@ -104,15 +101,71 @@ public class TravellingSalesmanProblemGA extends Population implements LogEventG
 		
 		costPath += lastCost;
 		
-		int mult = 1;
-		if(this.bestSolutionIsSatisfactory(chromosome))
-			mult=1000;
-		
-		return mult*(1./costPath);
+		return 1./costPath;
 	}
 
 	@Override
 	public void doCrossover(Chromosome chromosome1, Chromosome chromosome2) {
+		/*int dimensionOfChromosome = chromosome1.getGenes().length ;
+		int NPoint = config.getTypeOfCrossover();
+		int[] points = new int[NPoint+1];
+		
+		for(int i = 0; i<points.length; i++)
+		{
+			int crossoverPoint = (int) (Math.random()* (dimensionOfChromosome - 2));
+			points[i] = crossoverPoint;
+		}	
+		Arrays.sort(points);
+		points[NPoint]=dimensionOfChromosome;
+		
+		int lastI = 0;
+		boolean pari = true;
+		
+		for(int i = 0; i<points.length; i++)
+		{
+			for(int j = lastI; j<points[i]; j++)
+			{
+				if(pari){	
+					String[] genes1 = chromosome1.getGenes();
+					String[] genes2 = chromosome2.getGenes();
+					
+					String city = genes2[j];
+					
+					int searchIndexCity=0;
+					for(int x = 0; x<genes1.length; x++){
+						if(genes1[x].equals(city)){
+							searchIndexCity = x;
+							break;
+						}
+					}
+	
+					String temp = genes1[j];
+					chromosome1.setGene(city, j);
+					chromosome1.setGene(temp, searchIndexCity);
+				}		
+				else{
+					String[] genes1 = chromosome1.getGenes();
+					String[] genes2 = chromosome2.getGenes();
+					
+					String city = genes1[j];
+					
+					int searchIndexCity=0;
+					for(int x = 0; x<genes2.length; x++){
+						if(genes2[x].equals(city)){
+							searchIndexCity = x;
+							break;
+						}
+					}
+					
+					String temp = genes2[j];
+					chromosome2.setGene(city, j);
+					chromosome2.setGene(temp, searchIndexCity);
+				}
+			}
+			pari=!pari;
+			lastI = points[i];
+		}*/
+		
 		super.doCrossover(chromosome1, chromosome2);
 	}
 
@@ -146,10 +199,5 @@ public class TravellingSalesmanProblemGA extends Population implements LogEventG
 		    array[i] = array[randomPosition];
 		    array[randomPosition] = temp;
 		}
-	}
-
-	@Override
-	public void populationEvolutionFinished(EventFinishGA evt) {
-		System.out.println("Best in Population "+this.nameOfPopulation+" in "+evt.getNumberOfGenerations()+" generations : "+this.bestChromosomeDecode());
 	}
 }
