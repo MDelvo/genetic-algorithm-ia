@@ -1,5 +1,7 @@
 package it.uniroma3.dia;
 
+import it.uniroma3.dia.events.EventFinishGA;
+
 public class GeneticAlgorithm implements Runnable {
 	
 	private Config config;
@@ -42,6 +44,6 @@ public class GeneticAlgorithm implements Runnable {
 			this.population.replacePopulation(newGeneration);		
 		}	
 		
-		System.out.println("Best in Population "+this.population.nameOfPopulation+" in "+i+" generations : "+this.population.bestChromosomeDecode());
+		this.population.fireMyEvent(new EventFinishGA(this, this.population, i));
 	}
 }
