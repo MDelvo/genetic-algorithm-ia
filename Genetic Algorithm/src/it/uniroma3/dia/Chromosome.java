@@ -40,6 +40,7 @@ public class Chromosome implements Comparable<Object> {
 		strGenes += ", "+this.fitnessValue;
 		return strGenes;
 	}
+	
 	@Override
 	public int compareTo(Object arg) {
 		Chromosome tmp = (Chromosome)arg;

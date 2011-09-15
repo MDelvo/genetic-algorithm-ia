@@ -10,7 +10,8 @@ public class Config {
 	private int typeOfCrossover;
 	private int numberOfGenerations;
 	private int numberOfPopulations;
-
+	private int numberOfGenerationsOfMergedPopulations;
+	
 	public Config() {
 		Properties properties = new Properties();
 		try { 
@@ -23,6 +24,7 @@ public class Config {
 		this.typeOfCrossover = Integer.parseInt(properties.get("NPointCrossover").toString());
 		this.numberOfGenerations = Integer.parseInt(properties.get("NumberOfGenerations").toString());
 		this.numberOfPopulations = Integer.parseInt(properties.get("NumberOfPopulations").toString());
+		this.numberOfGenerationsOfMergedPopulations = Integer.parseInt(properties.get("NumberOfGenerationsOfMergedPopulations").toString());
 	}
 
 	public int getDimensionOfPopulation() {
@@ -47,5 +49,13 @@ public class Config {
 
 	public int getNumberOfPopulations() {
 		return this.numberOfPopulations;
+	}
+	
+	public void setNumberOfGenerations(int numberOfGenerations) {
+		this.numberOfGenerations = numberOfGenerations;
+	}
+	
+	public int getNumberOfGenerationsOfMergedPopulations() {
+		return numberOfGenerationsOfMergedPopulations;
 	}
 }
