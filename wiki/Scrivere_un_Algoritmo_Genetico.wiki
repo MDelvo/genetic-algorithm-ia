@@ -1,4 +1,4 @@
-#summary Come implementare un algoritmo genetico
+#summary Come implementare un Algoritmo Genetico
 
 = Scrivere un Algoritmo Genetico =
 
@@ -95,6 +95,8 @@ public class SchemeClassGA extends Population{
 	}
 }
 }}}
+
+
 
 = Download e Import della Libreria =
 
