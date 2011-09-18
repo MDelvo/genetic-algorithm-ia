@@ -8,7 +8,7 @@ Le funzioni obbligatorie da sovrascrivere sono:
 
 *computeFitness()*: funzione che serve a capire quali sono gli individui migliori secondo determinati parametri, migliore è la funzione di fitness e meglio lavorerà l'algoritmo genetico.
 
-*bestSolutionIsSatisfactory()*: funzione che serve a determinare se la soluzione ottima è ammissibile.
+*bestSolutionIsSatisfactory()*: funzione che serve a determinare se la soluzione ottima trovata dall'algoritmo è soddisfacente\ammissibile.
 
 Le altre funzioni se non sovrascritte opereranno con funzioni di default. Per modificare le altre funzioni si dia uno sguardo alle loro implementazioni nella classe Population.java della libreria. Nel progetto sono presenti degli esempi concreti di implementazione di algoritmi genetici più o meno complessi, come il problema TSP e il problema (semplificato) del Course TimeTabling.
 
