@@ -10,6 +10,19 @@ Le funzioni obbligatorie da sovrascrivere sono:
 
 Le altre funzioni se non sovrascritte opereranno con funzioni di default. Per modificare le altre funzioni si dia uno sguardo alle loro implementazioni nella classe Population.java della libreria. Nel progetto sono presenti degli esempi concreti di implementazione di algoritmi genetici più o meno complessi, come il problema TSP e il problema (semplificato) del Course TimeTabling.
 
+Nella directory del progetto deve essere presente un file di configurazione chiamato config.properties avente il seguente schema:
+
+{{{
+NumberOfPopulations=5
+NPointCrossover=2
+ProbabilityOfMutation=5
+ProbabilityOfCrossover=95
+DimensionOfPopulation=100
+NumberOfGenerations=1000
+NumberOfGenerationsOfMergedPopulations=1000
+}}}
+
+Il codice di base per programmare il proprio algoritmo genetico è il seguente:
 
 {{{
 import it.uniroma3.dia.Chromosome;
