@@ -1,5 +1,7 @@
 #summary Come implementare un algoritmo genetico
 
+= Scrivere un Algoritmo Genetico =
+
 Le funzioni obbligatorie da sovrascrivere sono:
 
 *generateFirstPopulation()*: funzione che genererà la popolazione iniziale.
@@ -93,3 +95,7 @@ public class SchemeClassGA extends Population{
 	}
 }
 }}}
+
+= Download e Import della Libreria =
+
+Per il download della libreria si visiti la sezione download del progetto e si scarichi l'ultima libreria .jar rilasciata. Una volta scaricata per importare la libreria su eclipse basta andare sul progetto, tasto destro, build path, configure build path, andare sul tab libraries, cliccare sul bottone add external JARs e selezionare il file scaricato. Per verificare che tutto funziona correttamente creare la classe sopra riportata con il medesimo contenuto, creare il file config.properties e provare ad avviare il progetto, se non vengono riscontrati errori è tutto configurato opportunamente per scrivere il proprio Algoritmo Genetico.
