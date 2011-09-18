@@ -28,8 +28,10 @@ public class GeneticAlgorithm implements Runnable {
 			this.population.randomizeChromosome(matingPool);
 			
 			Chromosome[] newGeneration = new Chromosome[matingPool.length];
-			for(int j = 0; j<newGeneration.length; j++)
+			for(int j = 0; j<newGeneration.length; j++){
 				newGeneration[j] = matingPool[j].clone();
+				newGeneration[j].setGeneration(i+1);
+			}
 			
 			for(int j = 0; j<=newGeneration.length/2 && newGeneration.length>=2; j+=2){
 				this.population.doCrossover(newGeneration[j], newGeneration[j+1]);
@@ -45,7 +47,11 @@ public class GeneticAlgorithm implements Runnable {
 
 			this.population.fireMyEvent(new EventFinishGA(this, this.population, i));
 		}	
+		
+		try { Thread.sleep(100); } catch (InterruptedException e) {}
+		
 		this.population.setInEvolution(false);
+
 		this.population.fireMyEvent(new EventFinishGA(this, this.population, i));
 	}
 }
