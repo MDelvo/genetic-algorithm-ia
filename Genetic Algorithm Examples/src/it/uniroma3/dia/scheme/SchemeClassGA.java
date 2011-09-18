@@ -18,6 +18,7 @@ public class SchemeClassGA extends Population{
 
 	@Override
 	public void generateFirstPopulation() {
+		// TODO Auto-generated method stub
 		int dimensionOfChromosome = 10;
 		for(int i = 0; i<config.getDimensionOfPopulation(); i++){
 			this.chromosomes[i] = new Chromosome(dimensionOfChromosome);
@@ -30,11 +31,13 @@ public class SchemeClassGA extends Population{
 
 	@Override
 	public double computeFitness(Chromosome chromosome) {
+		// TODO Auto-generated method stub
 		return Math.random();
 	}
 
 	@Override
 	public boolean bestSolutionIsSatisfactory(Chromosome chromosome) {
+		// TODO Auto-generated method stub
 		return true;
 	}
 	
