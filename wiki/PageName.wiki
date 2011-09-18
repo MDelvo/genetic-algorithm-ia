@@ -1,5 +1,13 @@
 #summary Come implementare un algoritmo genetico
 
+Le funzioni obbligatorie da sovrascrivere sono:
+*generateFirstPopulation()*: funzione che genererà la popolazione iniziale.
+*computeFitness()*: funzione che serve a capire quali sono gli individui migliori secondo determinati parametri, migliore è la funzione di fitness e meglio lavorerà l'algoritmo genetico.
+*bestSolutionIsSatisfactory()*: funzione che serve a determinare se la soluzione ottima è ammissibile.
+
+Le altre funzioni se non sovrascritte opereranno con funzioni di default. Per modificare le altre funzioni si dia uno sguardo alle loro implementazioni nella classe Population.java della libreria. Nel progetto sono presenti degli esempi concreti di implementazione di algoritmi genetici più o meno complessi, come il problema TSP e il problema (semplificato) del Course TimeTabling.
+
+{{{
 import it.uniroma3.dia.Chromosome;
 import it.uniroma3.dia.Population;
 import it.uniroma3.dia.World;
@@ -67,3 +75,4 @@ public class SchemeClassGA extends Population{
 			System.out.println("Best in Population "+this.nameOfPopulation+" in "+evt.getNumberOfGenerations()+" generations : "+this.bestChromosome());
 	}
 }
+}}}
