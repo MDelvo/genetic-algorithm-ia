@@ -3,9 +3,16 @@ package it.uniroma3.dia;
 public class Chromosome implements Comparable<Object> {
 	private String[] genes;
 	private double fitnessValue;
+	private int generation;
 	
 	public Chromosome(int dimensionOfChromosome){
 		this.genes = new String[dimensionOfChromosome];
+		this.generation = 1;
+	}
+	
+	public Chromosome(int dimensionOfChromosome, int generation){
+		this.genes = new String[dimensionOfChromosome];
+		this.generation = generation;
 	}
 
 	public void setGenes(String[] genes) {
@@ -32,12 +39,20 @@ public class Chromosome implements Comparable<Object> {
 		this.fitnessValue = fitnessValue;
 	}
 
+	public int getGeneration() {
+		return generation;
+	}
+
+	public void setGeneration(int generation) {
+		this.generation = generation;
+	}
+
 	@Override
 	public String toString() {
 		String strGenes = "";
 		for(int i = 0;i<this.genes.length; i++)
 			strGenes+=genes[i];
-		strGenes += ", "+this.fitnessValue;
+		strGenes += ", Generation: "+this.generation+", FitnessValue: "+this.fitnessValue;
 		return strGenes;
 	}
 	
@@ -47,6 +62,8 @@ public class Chromosome implements Comparable<Object> {
 		if(this.fitnessValue < tmp.fitnessValue)
 			return -1;
 		else if(this.fitnessValue > tmp.fitnessValue)
+			return 1;
+		else if(this.generation<tmp.generation)
 			return 1;
 		
 		return 0; 
