@@ -1,0 +1,43 @@
+#summary One-sentence summary of this page.
+
+= Principi di funzionamento =
+
+Un tipico algoritmo genetico parte da un certo numero di possibili soluzioni (individui) chiamate popolazione e provvede a farle evolvere nel corso dell'esecuzione: a ciascuna iterazione, esso opera una selezione di individui della popolazione corrente, impiegandoli per generare nuovi elementi della popolazione stessa, che andranno a sostituire un pari numero d'individui già presenti, e a costituire in tal modo una nuova popolazione per l'iterazione (o generazione) seguente. Tale successione di generazioni evolve verso una soluzione ottimale (locale o globale) del problema assegnato.
+La loro evoluzione viene ottenuta attraverso una parziale ricombinazione delle soluzioni, ogni individuo trasmette parte del suo patrimonio genetico ai propri discendenti, e l'introduzione di mutazioni casuali nella popolazione di partenza, sporadicamente quindi nascono individui con caratteristiche non comprese tra quelle presenti nel corredo genetico della specie originaria.
+Finita la fase di evoluzione la popolazione delle soluzioni viene analizzata e vengono tenute solo le soluzioni che meglio risolvono il problema: gli individui con le qualità più adatte all'ambiente in cui si trovano hanno quindi maggiori possibilità di sopravvivere e riprodursi. Queste soluzioni subiranno una nuova fase di evoluzione e così via.
+Alla fine ci si aspetta di trovare una popolazione di soluzioni che riescano a risolvere adeguatamente il problema posto. Non vi è modo di decidere a priori se l'algoritmo sarà effettivamente in grado di trovare una soluzione accettabile. Di norma gli algoritmi genetici vengono utilizzati per problemi di ottimizzazione per i quali non si conoscono algoritmi di complessità lineare o polinomiale.
+Un caso particolare di applicazione di algoritmi genetici è Acovea, un software studiato per trovare il profilo migliore delle opzioni di ottimizzazione del compilatore gcc: un problema di elevata complessità.
+
+
+= Dettaglio del funzionamento =
+
+La soluzione del problema viene codificata in una struttura, di solito una stringa, detta gene.
+Inizialmente viene creato un certo numero di geni in maniera casuale e si definisce una funzione che restituisca la "bontà" di un gene come soluzione del problema, detta funzione di fitness.
+L'algoritmo consiste nell'applicazione di operazioni, che tendono a modificare la popolazione dei geni, nel tentativo di migliorarli in modo da ottenere una soluzione sempre migliore.
+L'evoluzione procede quindi in passi, per ognuno di questi viene per prima cosa eseguito un ordinamento dei geni sulla base del risultato della funzione di fitness. Vengono poi eseguite le operazioni su un numero di geni stabilito dai parametri dell'algoritmo, che in generale determinano quanti geni devono subire crossover e mutazioni, e in quale misura.
+L'algoritmo evolve quindi attraverso i seguenti punti:
+generazione, in maniera casuale, una popolazione iniziale;
+creazione di una sequenza di nuove popolazioni, o generazioni. In ciascuna iterazione, gli individui della popolazione corrente sono usati per creare la generazione successiva, e a questo scopo si compiono degli ulteriori passi:
+ciascun membro della popolazione corrente è valutato calcolandone il rispettivo valore di fitness (idoneità);
+si determina un opportuno ordinamento di tali individui sulla base dei valori di fitness;
+gli individui più promettenti sono selezionati come genitori;
+a partire da tali individui si genera un pari numero di individui della generazione successiva, e ciò può avvenire secondo due modalità distinte, vale a dire effettuando cambiamenti casuali su un singolo genitore (mutazione) oppure combinando opportunamente le caratteristiche di una coppia di genitori (incrocio);
+gli individui così generati vanno a sostituire i genitori consentendo la formazione della generazione successiva;
+infine, l'algoritmo s'interrompe quando uno dei criteri d'arresto è soddisfatto.
+
+*Crossover*
+
+In base a un coefficiente stabilito inizialmente, alcune parti dei geni risultati migliori vengono scambiate, nell'ipotesi che questo possa migliorare il risultato della funzione di fitness nel successivo "passo evolutivo".
+
+*Single point crossing over*
+
+Single point crossover
+Ci sono varie tecniche di crossing over. Una delle più semplice è la "single point crossing over" che consiste nel prendere due individui e tagliare le loro stringhe di codifica in un punto a caso. Si creano così due teste e due code. A questo punto si scambiano le teste e le code, ottenendo due nuovi geni. Il crossing over non è applicato sempre, ma con una probabilità pc. Nel caso in cui non viene applicato i figli sono semplicemente le copie dei genitori.
+Sperimentalmente si può vedere che il miglioramento diventa apprezzabile solo dopo un certo numero di passi. Questo a meno di casi fortunati, ovviamente.
+
+*Mutazione*
+
+La mutazione consiste nella modifica casuale di alcune parti dei geni con valore di fitness più basso, in base a coefficienti definiti inizialmente. Queste modifiche puntano a migliorare il valore della funzione per il gene in questione.
+In realtà non è corretto pensare di mutare solo i cromosomi con fitness più bassa; al fine di garantire una maggiore capacità esplorativa dell'algoritmo (e non finire in "buche" di ottimo locale) sono ritenute utili anche le mutazioni di cromosomi con valore di fitness alto. In definitiva le mutazioni servono soprattutto a esplorare lo spazio di ricerca, non hanno quindi scopo migliorativo.
+
+Fonte: http://it.wikipedia.org/wiki/Algoritmo_genetico
