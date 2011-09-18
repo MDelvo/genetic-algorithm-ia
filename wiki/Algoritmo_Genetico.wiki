@@ -40,4 +40,4 @@ Sperimentalmente si può vedere che il miglioramento diventa apprezzabile solo d
 La mutazione consiste nella modifica casuale di alcune parti dei geni con valore di fitness più basso, in base a coefficienti definiti inizialmente. Queste modifiche puntano a migliorare il valore della funzione per il gene in questione.
 In realtà non è corretto pensare di mutare solo i cromosomi con fitness più bassa; al fine di garantire una maggiore capacità esplorativa dell'algoritmo (e non finire in "buche" di ottimo locale) sono ritenute utili anche le mutazioni di cromosomi con valore di fitness alto. In definitiva le mutazioni servono soprattutto a esplorare lo spazio di ricerca, non hanno quindi scopo migliorativo.
 
-Fonte: http://it.wikipedia.org/wiki/Algoritmo_genetico
+Fonte: [http://it.wikipedia.org/wiki/Algoritmo_genetico http://www.chinasvg.com/images/stories/logo_wikipedia.jpg]
