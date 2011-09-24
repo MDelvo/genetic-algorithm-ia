@@ -25,7 +25,7 @@ L'implementazione si basa su queste assunzioni:
  * Ci sono tante aule a disposizione per le lezioni
  * In una giornata ci sono sei lezioni (8.00-9.30, 9.45-11.15, 11.30-13.00, 14.00-15.30, 15.45-17.15, 17.30-19.00)
 
-Un cromosoma è inizializzato con una lunghezza pari a 5 (numero dei giorni della settimana) * N (numero aule a disposizione) * 6 (numero delle lezioni in una giornata)
+Un cromosoma è inizializzato con una lunghezza pari a 5 (numero dei giorni della settimana) x N (numero aule a disposizione) x 6 (numero delle lezioni in una giornata)
 
 Una soluzione del problema è codificata quindi in questo modo:
 da 0 a N*6 vengono rappresentate le lezioni del lunedì
