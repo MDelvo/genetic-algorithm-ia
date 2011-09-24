@@ -7,6 +7,7 @@ I vincoli stringenti sono:
  * Un professore alla stessa ora non può tenere due lezioni differenti
  * Le lezioni devono avere determinate ore in una settimana
  * L'aula deve essere adeguatamente grande per contenere gli studenti che devono seguire il corso
+ * Gli studenti di una facoltà non devono avere lezioni del proprio corso di studi nella stessa ora
 
 Per quanto riguarda i vincoli non stringenti, non sono stati implementati ma dovrebbero tener conto di eventuali preferenze dei professori, degli studenti o altro.
 
