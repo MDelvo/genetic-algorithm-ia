@@ -1,6 +1,6 @@
 #summary Dettagli sull'implementazione dell'algoritmo genetico per il CourseTimeTabling_Problem.
 
-= Course TimeTabling Problem =
+= Course Timetabling Problem =
 Il problema riguarda l'assegnazione delle lezioni in determinate aule in un determinato orario rispettando determinati vincoli.
 I vincoli stringenti sono:
  * Non devono esserci più lezioni nella stessa aula alla stessa ora
