@@ -42,6 +42,7 @@ Una volta descritta la struttura dei cromosomi, si è passati alla generazione d
 
 Per ogni corso, e per ogni ora di lezione che deve avere la settimana quel determinato corso, viene memorizzato nel cromosoma ad un posto random (dove non è stata ancora assegnata ancora nessuna lezione, quindi là dove vale 0) l'id di quel corso, in questo modo le soluzioni iniziali soddisfano il vincolo di avere determinate ore di lezione per tutti i corsi.
 
-Quindi si è definita la funzione di fitness che ha un valore maggiore a seconda di quanti vincoli rispetta una soluzione, più ne rispetta, e più è migliore.
+Quindi si è definita la funzione di fitness che ha un valore maggiore a seconda di quanti vincoli rispetta una soluzione, più ne rispetta e migliore è l'individuo.
 
-Le operazioni di crossover e di mutazione invece sono state lasciate quelle standard, ovvero il classico crossover tra cromosomi a N-point e l'operatore di mutazione che altro non fa che, con una probabilità uguale per ogni gene, scambiare un gene con un altro del cromosoma randomicamente.
+Le operazioni di crossover e di mutazione invece sono state lasciate invariate, ovvero il classico crossover tra cromosomi a N-point e l'operatore di mutazione che altro non fa che, con una probabilità uguale per ogni gene, scambiare un gene con un altro del cromosoma randomicamente.
+Nonostante un crossover di questo tipo implica che spesso un individuo non rispetti i vincoli di ammissibilità del problema, ad esempio ci saranno individui in cui non tutti i corsi avranno le prestabilite ore a settimana, il sistema tenderà a convergere ad una soluzione che rispetta tutti i vincoli grazie alla funzione di fitness, che farà scartare quegli individui le cui soluzioni non rispettano i vincoli.
