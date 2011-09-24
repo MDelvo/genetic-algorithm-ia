@@ -4,13 +4,13 @@
 
 La libreria è composta dalle seguenti classi:
 
-- una classe Mondo (World.java), che crea diverse popolazioni prestabilite e che è in grado di avviare l'evoluzione di tutte le popolazioni.
+ * una classe Mondo (World.java), che crea diverse popolazioni prestabilite e che è in grado di avviare l'evoluzione di tutte le popolazioni.
 
-- una classe Cromosoma (Chromosome.java) che rappresenta il cromosoma con i geni in un array di stringhe e il valore della funzione di fitness relativa al cromosoma.
+ * una classe Cromosoma (Chromosome.java) che rappresenta il cromosoma con i geni in un array di stringhe e il valore della funzione di fitness relativa al cromosoma.
 
-- una classe astratta Popolazione (Population.java) che rappresenta la popolazione e le caratteristiche di evoluzione (astratte e quindi da implementare), contiene i metodi astratti per generare gli individui iniziali della popolazione, la valutazione del cromosoma in termini di fitness, il crossover e la mutazione. In pratica ogni algoritmo genetico deve estendere la classe popolazione e ridefinire queste funzioni a seconda dello scopo dell'algoritmo.
+ * una classe astratta Popolazione (Population.java) che rappresenta la popolazione e le caratteristiche di evoluzione (astratte e quindi da implementare), contiene i metodi astratti per generare gli individui iniziali della popolazione, la valutazione del cromosoma in termini di fitness, il crossover e la mutazione. In pratica ogni algoritmo genetico deve estendere la classe popolazione e ridefinire queste funzioni a seconda dello scopo dell'algoritmo.
 
-- una classe GeneticAlgorithm che viene istanziata ed eseguita da una istanza di popolazione che avvia il vero e proprio algoritmo genetico con i passi standard di un algoritmo genetico (generazione random della prima generazione di individui, valutazione in termini di fitness, scelta elementi migliori sottoposti ad una probabilità di crossover (mating pool), crossover, mutazione dell'individuo (sul singolo gene con una determinata probabilità), rimpiazzamento per la definizione della nuova generazione e così via un numero prestabilito di volte).
+ * una classe GeneticAlgorithm.java che viene istanziata ed eseguita da una istanza di popolazione che avvia il vero e proprio algoritmo genetico con i passi standard di un algoritmo genetico (generazione random della prima generazione di individui, valutazione in termini di fitness, scelta elementi migliori sottoposti ad una probabilità di crossover (mating pool), crossover, mutazione dell'individuo (sul singolo gene con una determinata probabilità), rimpiazzamento per la definizione della nuova generazione e così via un numero prestabilito di volte).
 
 = Scrivere un Algoritmo Genetico =
 
