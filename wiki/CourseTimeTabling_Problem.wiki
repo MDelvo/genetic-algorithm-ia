@@ -15,7 +15,7 @@ Il dominio del problema è stato descritto in questo modo:
  * un insieme di professori (Professor.java) 
  * un insieme di aule (Classroom.java)
  * un insieme di facoltà (Faculty.java)
- * un insieme di corsi (CourseClass.java)
+ * un insieme di corsi (Courseclass.java)
 
 Nell'esempio viene inizializzato da codice un'istanza di questo problema che coincide con i corsi del primo anno di magistrale dell'università di romatre di ingegneria informatica.
 
