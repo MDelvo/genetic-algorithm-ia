@@ -1,0 +1,47 @@
+# Course Timetabling Problem #
+Il problema riguarda l'assegnazione delle lezioni in determinate aule in un determinato orario rispettando determinati vincoli.
+I vincoli stringenti sono:
+  * Non devono esserci più lezioni nella stessa aula alla stessa ora
+  * Un professore alla stessa ora non può tenere due lezioni differenti
+  * Le lezioni devono avere determinate ore in una settimana
+  * L'aula deve essere adeguatamente grande per contenere gli studenti che devono seguire il corso
+  * Gli studenti di una facoltà non devono avere lezioni del proprio corso di studi nella stessa ora
+
+Per quanto riguarda i vincoli non stringenti, non sono stati implementati ma dovrebbero tener conto di eventuali preferenze dei professori, degli studenti o altro.
+
+# Dominio del problema #
+Il dominio del problema è stato descritto in questo modo:
+  * un insieme di professori (Professor.java)
+  * un insieme di aule (Classroom.java)
+  * un insieme di facoltà (Faculty.java)
+  * un insieme di corsi (Courseclass.java)
+
+Nell'esempio viene inizializzato da codice un'istanza di questo problema che coincide con i corsi del primo anno di magistrale dell'università di romatre di ingegneria informatica.
+
+# Codifica del problema in termini di Algoritmo Genetico #
+L'implementazione si basa su queste assunzioni:
+  * Le lezioni si svolgono dal Lunedì al Venerdì
+  * Ci sono tante aule a disposizione per le lezioni
+  * In una giornata ci sono sei lezioni (8.00-9.30, 9.45-11.15, 11.30-13.00, 14.00-15.30, 15.45-17.15, 17.30-19.00)
+
+Un cromosoma è inizializzato con una lunghezza pari a 5 (numero dei giorni della settimana) x N (numero aule a disposizione) x 6 (numero delle lezioni in una giornata)
+
+Una soluzione del problema è codificata quindi in questo modo:
+da 0 a N\*6 vengono rappresentate le lezioni del lunedì
+da N\*6 e 2\*N\*6 quelle del martedì e così via.
+Ognuno di questi blocchi lungo N\*6 è diviso a sua volta per le classi N a disposizione.
+
+Quindi da 0 a 6 sono codificate le lezioni del lunedì (0 rappresenta quella delle 8, 1 quella delle 9.45 e così via). In questo modo in ogni indice di questo array viene memorizzato un numero.
+
+Questo numero vale 0 se in quell'ora, in quell'aula e in quel giorno non c'è nessuna lezione, altrimenti viene memorizzato all'interno l'ID del Corso.
+
+La struttura in questo modo per la natura della rappresentazione rispetta uno dei vincoli hard precedentemente descritti, ovvero non è possibile avere più di un corso nella stessa ora e nella stessa aula.
+
+Una volta descritta la struttura dei cromosomi, si è passati alla generazione della popolazione iniziale che è effettuata in questo modo:
+
+Per ogni corso, e per ogni ora di lezione che deve avere la settimana quel determinato corso, viene memorizzato nel cromosoma ad un posto random (dove non è stata ancora assegnata ancora nessuna lezione, quindi là dove vale 0) l'id di quel corso, in questo modo le soluzioni iniziali soddisfano il vincolo di avere determinate ore di lezione per tutti i corsi.
+
+Quindi si è definita la funzione di fitness che ha un valore maggiore a seconda di quanti vincoli rispetta una soluzione, più ne rispetta e migliore è l'individuo.
+
+Le operazioni di crossover e di mutazione invece sono state lasciate invariate, ovvero il classico crossover tra cromosomi a N-point e l'operatore di mutazione che altro non fa che, con una probabilità uguale per ogni gene, scambiare un gene con un altro del cromosoma randomicamente.
+Nonostante un crossover di questo tipo implica che spesso un individuo non rispetti i vincoli di ammissibilità del problema, ad esempio ci saranno individui in cui non tutti i corsi avranno le prestabilite ore a settimana, il sistema tenderà a convergere ad una soluzione che rispetta tutti i vincoli grazie alla funzione di fitness, che farà scartare quegli individui le cui soluzioni non rispettano i vincoli.
